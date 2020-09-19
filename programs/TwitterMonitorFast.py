@@ -2,7 +2,7 @@ import tweepy
 from discord_webhook import DiscordWebhook
 
 bot = input('input bot twitter username:')
-
+#W
 
 consumer_key = '1SFD2HvUdlgdSDwvqjKNvGBKc'
 consumer_secret = 'TSxU9m4EBqS96EPckEYfDWIEkdVHjOYfL2aUO43YD5VZE0cMV9'
