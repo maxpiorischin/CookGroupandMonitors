@@ -8,7 +8,7 @@ livestockrunning = True
 nrmlrunning = True
 bbbrandedrunning = True
 # ------------------
-shopifyallwebhook = 'https://discordapp.com/api/webhooks/751671463660093520/MiMV4BA4qldw2omwVI-37AI_G3eWDIaaRlZKMCX192zpqxudfVLdR2NbZn9-28HrjyiC'
+allwebhook = 'https://discordapp.com/api/webhooks/751671463660093520/MiMV4BA4qldw2omwVI-37AI_G3eWDIaaRlZKMCX192zpqxudfVLdR2NbZn9-28HrjyiC'
 # ------------------------------------------------------------------------------
 livestocklink = "https://www.deadstock.ca/collections/new-arrivals/products/"
 nrmllink = "https://nrml.ca/"
@@ -66,7 +66,7 @@ def siteupdatelivestock():
                     print("New Item Livestock: ", item['title'])
                     shoe_url = livestocklink + item['handle']
                     webhook = DiscordWebhook(
-                        url=shopifyallwebhook,
+                        url=allwebhook,
                         content=shoe_url, user="LivestockBot")
                     webhook.execute()
 
@@ -97,7 +97,7 @@ def siteupdatenrml():
                     print("New Item nrml: ", item['title'])
                     shoe_url = nrmllink + item['handle']
                     webhook = DiscordWebhook(
-                        url=shopifyallwebhook,
+                        url=allwebhook,
                         content=shoe_url, user="NrmlBot")
                     webhook.execute()
             nrml_list = temp_list
@@ -127,7 +127,7 @@ def siteupdatebbbranded():
                     print("New Item bbbranded: ", item['title'])
                     shoe_url = bblink + item['handle']
                     webhook = DiscordWebhook(
-                        url=shopifyallwebhook,
+                        url=allwebhook,
                         content=shoe_url, user="BBBrandedBot")
                     webhook.execute()
             bb_list = temp_list
