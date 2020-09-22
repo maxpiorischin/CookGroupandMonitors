@@ -2,7 +2,7 @@ import tweepy
 from discord_webhook import DiscordWebhook
 
 bot = input('input bot twitter username:')
-#W
+#Big Win
 
 consumer_key = '1SFD2HvUdlgdSDwvqjKNvGBKc'
 consumer_secret = 'TSxU9m4EBqS96EPckEYfDWIEkdVHjOYfL2aUO43YD5VZE0cMV9'
@@ -56,7 +56,8 @@ botdict = {
 
     'tvyeet': '994587180130447360',
 
-    'splashforcebot': '910500300594786305'
+    'splashforcebot': '910500300594786305',
+
 }
 print('starting to monitor!')
 print(bot)
