@@ -156,3 +156,4 @@ if __name__ == "__main__":
             proc.start()
         for p in processes:
             p.join()
+        #print('w')

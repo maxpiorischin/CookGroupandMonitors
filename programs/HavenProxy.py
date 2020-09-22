@@ -6,7 +6,7 @@ from discord_webhook import DiscordWebhook
 havenrunning = True
 # ------------------
 havenlink = 'https://shop.havenshop.com/collections/new-arrivals'
-allwebhook = 'https://discordapp.com/api/webhooks/757788317243932754/_MQtbVKwX7NltbVj5wXdgcujUV20S7KPqFQ27wC8-sdTeKhaCQaZSO_g5xWNhJKam8aA'
+allwebhook = 'https://discordapp.com/api/webhooks/751671463660093520/MiMV4BA4qldw2omwVI-37AI_G3eWDIaaRlZKMCX192zpqxudfVLdR2NbZn9-28HrjyiC'
 proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/',
            'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
 print("Starting to monitor!")
