@@ -36,4 +36,4 @@ while True:
     time.sleep(5)
     if havenrunning:
         siteupdatehaven()
-    print('w')
+    print('win')
