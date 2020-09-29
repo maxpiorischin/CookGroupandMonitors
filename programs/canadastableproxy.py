@@ -4,6 +4,7 @@ import time
 from multiprocessing import Process
 from discord_webhook import DiscordWebhook
 
+beginning_time = time.perf_counter()
 livestockrunning = True
 nrmlrunning = True
 bbbrandedrunning = True
