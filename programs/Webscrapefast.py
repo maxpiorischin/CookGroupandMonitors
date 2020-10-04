@@ -16,18 +16,22 @@ if havenrunning:
     hav = requests.get(havenlink)
     havensoup = BeautifulSoup(hav.content, 'html.parser')
     haven_list = havensoup.find_all(class_='product-card-name')
+else:
+    haven_list = []
 if footlockercarunning:
     flca = requests.get(footlockercalink, headers = {'Referer': 'https://www.google.com/', "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36' })
     flcasoup = BeautifulSoup(flca.content, 'html.parser')
     flca_list = flcasoup.find_all(class_='product-container col')
+else:
+    flca_list = []
 # ----------------------------------------------------------------------------------------
-def siteupdatehaven():
+def siteupdatehaven(main_list):
     global haven_list
     n = requests.get(havenlink)
     tempsoup = BeautifulSoup(n.content, 'html.parser')
     temp_list = tempsoup.find_all(class_='product-card-name')
     for item in temp_list:
-        if item not in haven_list:
+        if item not in main_list:
             print("New Item Haven: ", item.text)
             url = item.text.replace(' ', '-')
             urlend = '/products/' + url
@@ -36,15 +40,14 @@ def siteupdatehaven():
                 url=havenwebhook,
                 content=shoe_url, user="haven")
             webhook.execute()
-    haven_list = temp_list
+    return temp_list
 
-def siteupdateflca():
-    global flca_list
+def siteupdateflca(main_list):
     n = requests.get(footlockercalink, headers={'Referer': 'https://www.google.com/', "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36' })
     tempsoup = BeautifulSoup(n.content, 'html.parser')
     temp_list = tempsoup.find_all(class_='product-container col')
     for item in temp_list:
-        if item not in flca_list:
+        if item not in main_list:
             print("New Item FootlockerCanada: ", item.a['href'])
             urlend = item.a['href']
             shoe_url = "https://footlocker.ca" + urlend
@@ -56,13 +59,14 @@ def siteupdateflca():
                 url=allwebhook,
                 content=shoe_url, user="FLCA")
             webhook2.execute()
-    flca_list = temp_list
+    return temp_list
 
 if __name__ == "__main__":
     while True:
         time.sleep(5)
         if havenrunning:
-            siteupdatehaven()
+            haven_list = siteupdatehaven(haven_list)
         if footlockercalink:
-            siteupdateflca()
+            flca_list = siteupdateflca(flca_list)
+
         print('w')

@@ -17,10 +17,9 @@ bblink = 'https://www.bbbranded.com/collections/all/products/'
 livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
 nrmllinkjson = "https://nrml.ca/products.json"
 bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
-proxiesif = input
 proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/',
-           'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
-#print("Starting to monitor!")
+               'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
+# print("Starting to monitor!")
 if livestockrunning:
     live = requests.get(livestocklinkjson, proxies=proxies)
     livestock_list = json.loads(live.text)['products']
@@ -58,7 +57,7 @@ def siteupdatelivestock():
         for tempid in temp_list:
             temp_id_list.append(tempid['id'])
         if temp_id_list == livestock_id_list:
-            #print("No Livestock Change")
+            # print("No Livestock Change")
             pass
             # Condition Checks if lists are identical, if yes, loop repeats
         else:
@@ -143,7 +142,7 @@ def siteupdatebbbranded():
 if __name__ == "__main__":
     while True:
         processes = []
-        #print('ez')
+        # print('ez')
         if livestockrunning:
             proc = Process(target=siteupdatelivestock)
             processes.append(proc)
@@ -158,4 +157,4 @@ if __name__ == "__main__":
             proc.start()
         for p in processes:
             p.join()
-        #print('w')
+        # print('w')

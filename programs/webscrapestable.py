@@ -2,7 +2,7 @@ import requests
 import time
 from bs4 import BeautifulSoup
 from discord_webhook import DiscordWebhook
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 
 havenrunning = False
 footlockercarunning = True
@@ -11,8 +11,11 @@ havenlink = 'https://shop.havenshop.com/collections/new-arrivals'
 footlockercalink = 'https://www.footlocker.ca/en/category/new-arrivals'
 footlockercanadawebhook = 'https://discordapp.com/api/webhooks/760364048004546591/mBKXd0uL66acDZVVzJd4_XIPgi_JOK_c7W_FYwp9DkdXCnfX1QLhRVwV7zorzc3WN8v6'
 allwebhook = 'https://discordapp.com/api/webhooks/751671463660093520/MiMV4BA4qldw2omwVI-37AI_G3eWDIaaRlZKMCX192zpqxudfVLdR2NbZn9-28HrjyiC'
-proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/',
-           'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
+proxiesif = input('Proxies?(Y or N').lower()
+proxies = {}
+if proxiesif != 'n':
+    proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/',
+               'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
 print("Starting to monitor!")
 if havenrunning:
     hav = requests.get(havenlink, proxies)
@@ -28,7 +31,7 @@ if footlockercarunning:
 # ----------------------------------------------------------------------------------------
 def siteupdatehaven():
     global haven_list
-    n = requests.get(havenlink, proxies)
+    n = requests.get(havenlink, proxies = proxies)
     tempsoup = BeautifulSoup(n.content, 'html.parser')
     temp_list = tempsoup.find_all(class_='product-card-name')
     for item in temp_list:
@@ -71,11 +74,11 @@ if __name__ == "__main__":
         processes = []
         # print('ez')
         if havenrunning:
-            proc = Process(target=siteupdatehaven())
+            proc = Process(target=siteupdatehaven)
             processes.append(proc)
             proc.start()
         if footlockercarunning:
-            proc = Process(target=siteupdateflca())
+            proc = Process(target=siteupdateflca)
             processes.append(proc)
             proc.start()
         for p in processes:
