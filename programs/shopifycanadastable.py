@@ -1,22 +1,15 @@
 import requests
 import json
 import time
+from multiprocessing import Process
 from discord_webhook import DiscordWebhook
 
+beginning_time = time.perf_counter()
 livestockrunning = True
 nrmlrunning = True
 bbbrandedrunning = True
 # ------------------
-shopifyallwebhook = 'https://discordapp.com/api/webhooks/751671463660093520/MiMV4BA4qldw2omwVI-37AI_G3eWDIaaRlZKMCX192zpqxudfVLdR2NbZn9-28HrjyiC'
-livestock_webhook_list = [
-    "https://discordapp.com/api/webhooks/746485840498130944/FTQrIYfouLCswGs45JEvfdAlENksuHyY3AYFGgWj5yY546KXCdCL40wcsE4Jkne2Ykn8",
-    shopifyallwebhook]
-nrml_webhook_list = [
-    'https://discordapp.com/api/webhooks/747662610333433928/O4Md3uhXoYLTpm7PnogaDbLQKTv4y4f9XE9MDrInZSCSthQceLITrWau8EeEvaXYdzWF',
-    shopifyallwebhook]
-bbbranded_webhook_list = [
-    "https://discordapp.com/api/webhooks/749008549685887026/8E-JyhhBQ9uF96tEYSA0_NGF8jZOf89ZwVDFczhgU6Xs8qJBh_w_QPB94EbT8_d4iYiA",
-    shopifyallwebhook]
+allwebhook = 'https://discordapp.com/api/webhooks/751671463660093520/MiMV4BA4qldw2omwVI-37AI_G3eWDIaaRlZKMCX192zpqxudfVLdR2NbZn9-28HrjyiC'
 # ------------------------------------------------------------------------------
 livestocklink = "https://www.deadstock.ca/collections/new-arrivals/products/"
 nrmllink = "https://nrml.ca/"
@@ -24,24 +17,26 @@ bblink = 'https://www.bbbranded.com/collections/all/products/'
 livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
 nrmllinkjson = "https://nrml.ca/products.json"
 bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
-# todo add proxies, add more variables
-print("Starting to monitor!")
+proxiesif = input
+proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/',
+           'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
+#print("Starting to monitor!")
 if livestockrunning:
-    live = requests.get(livestocklinkjson)
+    live = requests.get(livestocklinkjson, proxies=proxies)
     livestock_list = json.loads(live.text)['products']
     livestock_id_list = []
     for liveid in livestock_list:
         livestock_id_list.append(liveid['id'])
 
 if nrmlrunning:
-    nr = requests.get(nrmllinkjson)
+    nr = requests.get(nrmllinkjson, proxies=proxies)
     nrml_list = json.loads(nr.text)['products']
     nrml_id_list = []
     for nrmlid in nrml_list:
         nrml_id_list.append(nrmlid['id'])
 
 if bbbrandedrunning:
-    bb = requests.get(bblinkjson)
+    bb = requests.get(bblinkjson, proxies=proxies)
     bb_list = json.loads(bb.text)['products']
     bb_id_list = []
     for bbid in bb_list:
@@ -53,7 +48,7 @@ if bbbrandedrunning:
 # ----------------------------------------------------------------------------------------
 def siteupdatelivestock():
     global livestock_list, livestock_id_list
-    n = requests.get(livestocklinkjson)
+    n = requests.get(livestocklinkjson, proxies=proxies)
     if n.status_code != 200:
         time.sleep(60)
         print('error livestock')
@@ -73,9 +68,10 @@ def siteupdatelivestock():
                     print("New Item Livestock: ", item['title'])
                     shoe_url = livestocklink + item['handle']
                     webhook = DiscordWebhook(
-                        url=livestock_webhook_list,
+                        url=allwebhook,
                         content=shoe_url, user="LivestockBot")
                     webhook.execute()
+
             livestock_list = temp_list
             livestock_id_list = temp_id_list
             print("Change!")
@@ -83,7 +79,7 @@ def siteupdatelivestock():
 
 def siteupdatenrml():
     global nrml_list, nrml_id_list
-    n = requests.get(nrmllinkjson)
+    n = requests.get(nrmllinkjson, proxies=proxies)
     if n.status_code != 200:
         time.sleep(60)
         print('error nrml')
@@ -93,7 +89,7 @@ def siteupdatenrml():
         for tempid in temp_list:
             temp_id_list.append(tempid['id'])
         if temp_id_list == nrml_id_list:
-            #print("No nrml Change")
+            # print("No nrml Change")
             pass
             # Condition Checks if lists are identical, if yes, loop repeats
         else:
@@ -103,16 +99,17 @@ def siteupdatenrml():
                     print("New Item nrml: ", item['title'])
                     shoe_url = nrmllink + item['handle']
                     webhook = DiscordWebhook(
-                        url=nrml_webhook_list,
+                        url=allwebhook,
                         content=shoe_url, user="NrmlBot")
                     webhook.execute()
             nrml_list = temp_list
             nrml_id_list = temp_id_list
             print("Change!")
 
+
 def siteupdatebbbranded():
     global bb_list, bb_id_list
-    n = requests.get(bblinkjson)
+    n = requests.get(bblinkjson, proxies=proxies)
     if n.status_code != 200:
         time.sleep(60)
         print('error bb')
@@ -122,7 +119,7 @@ def siteupdatebbbranded():
         for tempid in temp_list:
             temp_id_list.append(tempid['id'])
         if temp_id_list == bb_id_list:
-            #print("No bbbranded Change")
+            # print("No bbbranded Change")
             pass
             # Condition Checks if lists are identical, if yes, loop repeats
         else:
@@ -132,7 +129,7 @@ def siteupdatebbbranded():
                     print("New Item bbbranded: ", item['title'])
                     shoe_url = bblink + item['handle']
                     webhook = DiscordWebhook(
-                        url=bbbranded_webhook_list,
+                        url=allwebhook,
                         content=shoe_url, user="BBBrandedBot")
                     webhook.execute()
             bb_list = temp_list
@@ -145,10 +142,20 @@ def siteupdatebbbranded():
 
 if __name__ == "__main__":
     while True:
-        time.sleep(7)
+        processes = []
+        #print('ez')
         if livestockrunning:
-            siteupdatelivestock()
+            proc = Process(target=siteupdatelivestock)
+            processes.append(proc)
+            proc.start()
         if nrmlrunning:
-            siteupdatenrml()
+            proc = Process(target=siteupdatenrml)
+            processes.append(proc)
+            proc.start()
         if bbbrandedrunning:
-            siteupdatebbbranded()
+            proc = Process(target=siteupdatebbbranded)
+            processes.append(proc)
+            proc.start()
+        for p in processes:
+            p.join()
+        #print('w')

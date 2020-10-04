@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from discord_webhook import DiscordWebhook
 from multiprocessing import Process
 
-havenrunning = True
+havenrunning = False
 footlockercarunning = True
 # ------------------
 havenlink = 'https://shop.havenshop.com/collections/new-arrivals'
