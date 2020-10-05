@@ -1,8 +1,6 @@
 from multiprocessing import Process
 import time
 
-print('hello')  # why does this get printed over and over again?
-
 
 def func1(num):
     print(num ** 2)
@@ -15,6 +13,7 @@ def func2(num):
 
 
 if __name__ == '__main__':
+    print('hello')  # why does this get printed over and over again?
     counter = 0
     while counter < 10:
         proc1 = Process(target=func1, args=(2,))

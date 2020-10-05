@@ -4,54 +4,6 @@ import time
 from discord_webhook import DiscordWebhook
 from multiprocessing import Process, Queue
 
-livestockrunning = True
-nrmlrunning = True
-bbbrandedrunning = True
-# ------------------
-livestocklink = "https://www.deadstock.ca/collections/new-arrivals/products/"
-nrmllink = "https://nrml.ca/"
-bblink = 'https://www.bbbranded.com/collections/all/products/'
-livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
-nrmllinkjson = "https://nrml.ca/products.json"
-bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
-livestockwebhook = 'https://discordapp.com/api/webhooks/752042313727082579/wWTjZUsYuWSCR-js-6gA9mSp2EKj0sBtXPBVdRCRkJL8y9thnVkMYH85WJjtHGGZE0ud'
-nrmlwebhook = 'https://discordapp.com/api/webhooks/752042422950953033/4RpX9y-t6OLhRPSaoXVKbVz_AznsmgLN9sRNJC-m-nH9ca1Me7PQAM3SuBYPRdzisgVV'
-bbbrandedwebhook = "https://discordapp.com/api/webhooks/751999828657176667/M-AM-KfjIbiSiFeoQnD-giFbqw_IydkDUhvEJJUHvB1qTTxCJuHQS9kcE_F6JHhB9vR7"
-livestock_list = []
-livestock_id_list = []
-nrml_list = []
-nrml_id_list = []
-bb_list = []
-bb_id_list = []
-isproxies = input('Use Proxies? (Y or N)').lower()
-delaytime = int(input('Monitor Delay:'))
-proxies = {}
-if isproxies != 'n':
-    proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@cwda.slashproxies.io:20000/',
-               'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
-# todo add proxies, add more variables
-print("Starting to monitor!")
-if livestockrunning:
-    live = requests.get(livestocklinkjson)
-    livestock_list = json.loads(live.text)['products']
-    print(livestock_list)
-    for liveid in livestock_list:
-        livestock_id_list.append(liveid['id'])
-
-if nrmlrunning:
-    nr = requests.get(nrmllinkjson)
-    nrml_list = json.loads(nr.text)['products']
-    for nrmlid in nrml_list:
-        nrml_id_list.append(nrmlid['id'])
-
-if bbbrandedrunning:
-    bb = requests.get(bblinkjson)
-    bb_list = json.loads(bb.text)['products']
-    for bbid in bb_list:
-        bb_id_list.append(bbid['id'])
-
-
-# kith = .... todo add more sites with site functions
 
 # ----------------------------------------------------------------------------------------
 def siteupdate(main_list, main_id_list, jsonlink, link, sitename, webhook, queue):
@@ -78,6 +30,51 @@ def siteupdate(main_list, main_id_list, jsonlink, link, sitename, webhook, queue
 # --------------------------------------------------------------------------------------------------
 # todo multi precessing
 if __name__ == "__main__":
+    livestockrunning = True
+    nrmlrunning = True
+    bbbrandedrunning = True
+    # ------------------
+    livestocklink = "https://www.deadstock.ca/collections/new-arrivals/products/"
+    nrmllink = "https://nrml.ca/"
+    bblink = 'https://www.bbbranded.com/collections/all/products/'
+    livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
+    nrmllinkjson = "https://nrml.ca/products.json"
+    bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
+    livestockwebhook = 'https://discordapp.com/api/webhooks/752042313727082579/wWTjZUsYuWSCR-js-6gA9mSp2EKj0sBtXPBVdRCRkJL8y9thnVkMYH85WJjtHGGZE0ud'
+    nrmlwebhook = 'https://discordapp.com/api/webhooks/752042422950953033/4RpX9y-t6OLhRPSaoXVKbVz_AznsmgLN9sRNJC-m-nH9ca1Me7PQAM3SuBYPRdzisgVV'
+    bbbrandedwebhook = "https://discordapp.com/api/webhooks/751999828657176667/M-AM-KfjIbiSiFeoQnD-giFbqw_IydkDUhvEJJUHvB1qTTxCJuHQS9kcE_F6JHhB9vR7"
+    livestock_list = []
+    livestock_id_list = []
+    nrml_list = []
+    nrml_id_list = []
+    bb_list = []
+    bb_id_list = []
+    isproxies = input('Use Proxies? (Y or N)').lower()
+    delaytime = int(input('Monitor Delay:'))
+    proxies = {}
+    if isproxies != 'n':
+        proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@cwda.slashproxies.io:20000/',
+                'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
+    # todo add proxies, add more variables
+    print("Starting to monitor!")
+    if livestockrunning:
+        live = requests.get(livestocklinkjson)
+        livestock_list = json.loads(live.text)['products']
+        for liveid in livestock_list:
+            livestock_id_list.append(liveid['id'])
+
+    if nrmlrunning:
+        nr = requests.get(nrmllinkjson)
+        nrml_list = json.loads(nr.text)['products']
+        for nrmlid in nrml_list:
+            nrml_id_list.append(nrmlid['id'])
+
+    if bbbrandedrunning:
+        bb = requests.get(bblinkjson)
+        bb_list = json.loads(bb.text)['products']
+        for bbid in bb_list:
+            bb_id_list.append(bbid['id'])
+
     while True:
         q = Queue()
         rets = []
