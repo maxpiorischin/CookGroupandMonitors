@@ -101,5 +101,4 @@ if __name__ == "__main__":
             rets.append(ret)
         for p in processes:
             p.join()
-        print(livestock_list)
         print('w')
