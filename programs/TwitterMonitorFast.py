@@ -1,7 +1,5 @@
 import tweepy
 from discord_webhook import DiscordWebhook
-
-bot = input('input bot twitter username:')
 #Big Win
 
 consumer_key = '1SFD2HvUdlgdSDwvqjKNvGBKc'
@@ -60,7 +58,6 @@ botdict = {
 
 }
 print('starting to monitor!')
-print(bot)
 
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
@@ -73,7 +70,10 @@ class MyStreamListener(tweepy.StreamListener):
             print("**{} tweeted:** {}".format(status.user.screen_name, status.text))
 
 
-myStreamListener = MyStreamListener()
-myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
-myStream.filter(
-    follow=[botdict[bot]], is_async=True)
+if __name__ == '__main__':
+    bot = input('input bot twitter username:')
+    print(bot)
+    myStreamListener = MyStreamListener()
+    myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
+    myStream.filter(
+        follow=[botdict[bot]], is_async=True)

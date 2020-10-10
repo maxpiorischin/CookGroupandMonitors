@@ -78,10 +78,11 @@ class MyStreamListener(tweepy.StreamListener):
                     print('BOT RESTOCK!')
 
 
-myStreamListener = MyStreamListener()
-myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
-botidlist = []
-for item in botdict:
-    botidlist.append(botdict[item])
-myStream.filter(
-    follow=botidlist, is_async=True)
+if __name__ == '__main__':
+    myStreamListener = MyStreamListener()
+    myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
+    botidlist = []
+    for item in botdict:
+        botidlist.append(botdict[item])
+    myStream.filter(
+        follow=botidlist, is_async=True)
