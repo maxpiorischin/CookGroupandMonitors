@@ -6,7 +6,7 @@ from multiprocessing import Process, Queue
 
 
 # ----------------------------------------------------------------------------------------
-def siteupdate(main_list, main_id_list, jsonlink, link, sitename, webhook, queue):
+def siteupdate(main_list, main_id_list, jsonlink, link, sitename, webhook, queue, proxies):
     n = requests.get(jsonlink, proxies=proxies)
     temp_list = json.loads(n.text)['products']
     temp_id_list = []
@@ -28,7 +28,6 @@ def siteupdate(main_list, main_id_list, jsonlink, link, sitename, webhook, queue
 
 
 # --------------------------------------------------------------------------------------------------
-# todo multi precessing
 if __name__ == "__main__":
     livestockrunning = True
     nrmlrunning = True
@@ -53,8 +52,8 @@ if __name__ == "__main__":
     delaytime = int(input('Monitor Delay:'))
     proxies = {}
     if isproxies != 'n':
-        proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@cwda.slashproxies.io:20000/',
-                'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
+        proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@shpfy26.slashproxies.io:40000',
+                'http': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@shpfy26.slashproxies.io:40000'}
     # todo add proxies, add more variables
     print("Starting to monitor!")
     if livestockrunning:
@@ -83,15 +82,15 @@ if __name__ == "__main__":
         if livestockrunning:
             proc = Process(target=siteupdate,
                            args=[livestock_list, livestock_id_list, livestocklinkjson, livestocklink, 'Livestock',
-                                 livestockwebhook, q])
+                                 livestockwebhook, q, proxies])
             proc.start()
         if nrmlrunning:
             proc = Process(target=siteupdate,
-                           args=[nrml_list, nrml_id_list, nrmllinkjson, nrmllink, 'nrml', nrmlwebhook, q])
+                           args=[nrml_list, nrml_id_list, nrmllinkjson, nrmllink, 'nrml', nrmlwebhook, q, proxies])
             proc.start()
         if bbbrandedrunning:
             proc = Process(target=siteupdate,
-                           args=[bb_list, bb_id_list, bblinkjson, bblink, 'bbbranded', bbbrandedwebhook, q])
+                           args=[bb_list, bb_id_list, bblinkjson, bblink, 'bbbranded', bbbrandedwebhook, q, proxies])
             proc.start()
         for p in processes:
             ret = q.get()

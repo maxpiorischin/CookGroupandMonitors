@@ -17,8 +17,8 @@ bblink = 'https://www.bbbranded.com/collections/all/products/'
 livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
 nrmllinkjson = "https://nrml.ca/products.json"
 bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
-proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/',
-               'http': 'http://maxsnkrs252165:08621ab5cb7ffe02111Aa@ca.slashproxies.io:20000/'}
+proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@shpfy26.slashproxies.io:40000',
+               'http': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@shpfy26.slashproxies.io:40000'}
 # print("Starting to monitor!")
 if livestockrunning:
     live = requests.get(livestocklinkjson, proxies=proxies)
