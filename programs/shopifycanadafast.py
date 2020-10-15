@@ -88,3 +88,4 @@ if __name__ == "__main__":
             siteupdatenrml()
         if bbbrandedrunning:
             siteupdatebbbranded()
+        print('w')
