@@ -52,9 +52,17 @@ botdict = {
 
     'thenorthcop': '4499047233',
 
+    'osirisrafflebot': '1190094485687947264',
+
+    'pulsaraio': '1181031632804941824',
+
+    're_aio': '1147686467973443584',
+
+    'hawkmesh': '1105057852287340544',
+
     'tvyeet': '994587180130447360',
 
-    'splashforcebot': '910500300594786305',
+    'splashforcebot': '910500300594786305'
 
 }
 print('starting to monitor!')

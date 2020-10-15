@@ -15,6 +15,7 @@ nrmllinkjson = "https://nrml.ca/products.json"
 bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
 # todo add proxies, add more variables
 print("Starting to monitor!")
+delay = int(input('Input Delay (seconds):'))
 if livestockrunning:
     live = requests.get(livestocklinkjson)
     livestock_list = json.loads(live.text)['products']
@@ -80,7 +81,7 @@ def siteupdatebbbranded():
 # --------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
     while True:
-        time.sleep(1)
+        time.sleep(delay)
         if livestockrunning:
             siteupdatelivestock()
         if nrmlrunning:
