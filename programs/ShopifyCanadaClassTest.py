@@ -63,8 +63,8 @@ if __name__ == "__main__":
     delaytime = int(input('Monitor Delay:'))
     proxies = {}
     if isproxies != 'n':
-        proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@shpfy26.slashproxies.io:40000',
-                'http': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@shpfy26.slashproxies.io:40000'}
+        proxies = {'https': 'https://maximpiorischin8390:421debdacc9a9dfea41Aa@ca.slashproxies.io:20000',
+                'http': 'https://maximpiorischin8390:421debdacc9a9dfea41Aa@ca.slashproxies.io:20000'}
     # todo add proxies, add more variables
     print("Starting to monitor!")
     if livestockrunning:

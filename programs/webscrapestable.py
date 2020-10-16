@@ -16,8 +16,8 @@ flca_list = []
 haven_list = []
 proxies = {}
 if proxiesif != 'n':
-    proxies = {'https': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@shpfy26.slashproxies.io:40000',
-               'http': 'https://maxsnkrs252165:08621ab5cb7ffe02111Aa@shpfy26.slashproxies.io:40000'}
+    proxies = {'https': 'https://maximpiorischin8390:421debdacc9a9dfea41Aa@ca.slashproxies.io:20000',
+               'http': 'https://maximpiorischin8390:421debdacc9a9dfea41Aa@ca.slashproxies.io:20000'}
 print("Starting to monitor!")
 if havenrunning:
     hav = requests.get(havenlink, proxies)
