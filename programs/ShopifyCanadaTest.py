@@ -38,6 +38,7 @@ if __name__ == "__main__":
     nrmllink = "https://nrml.ca/"
     bblink = 'https://www.bbbranded.com/collections/all/products/'
     livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
+    livestockyeezylinkjson = 'https://www.deadstock.ca/collections/yeezy/products.json'
     nrmllinkjson = "https://nrml.ca/products.json"
     bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
     livestockwebhook = 'https://discordapp.com/api/webhooks/752042313727082579/wWTjZUsYuWSCR-js-6gA9mSp2EKj0sBtXPBVdRCRkJL8y9thnVkMYH85WJjtHGGZE0ud'
@@ -52,9 +53,9 @@ if __name__ == "__main__":
     isproxies = input('Use Proxies? (Y or N)').lower()
     delaytime = int(input('Monitor Delay:'))
     isYeezy = input('Yeezys?(Y or N)').lower()
-    if isYeezy == y:
+    if isYeezy == 'y':
         livestocklink = livestockyeezylink
-
+        livestocklinkjson = livestockyeezylinkjson
     proxies = {}
     if isproxies != 'n':
         proxies = {'https': 'https://maximpiorischin8390:421debdacc9a9dfea41Aa@ca.slashproxies.io:20000',
