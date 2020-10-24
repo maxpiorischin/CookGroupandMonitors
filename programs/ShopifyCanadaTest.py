@@ -34,6 +34,7 @@ if __name__ == "__main__":
     bbbrandedrunning = True
     # ------------------
     livestocklink = "https://www.deadstock.ca/collections/new-arrivals/products/"
+    livestockyeezylink = 'https://www.deadstock.ca/collections/yeezy'
     nrmllink = "https://nrml.ca/"
     bblink = 'https://www.bbbranded.com/collections/all/products/'
     livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
@@ -50,6 +51,10 @@ if __name__ == "__main__":
     bb_id_list = []
     isproxies = input('Use Proxies? (Y or N)').lower()
     delaytime = int(input('Monitor Delay:'))
+    isYeezy = input('Yeezys?(Y or N)').lower()
+    if isYeezy == y:
+        livestocklink = livestockyeezylink
+
     proxies = {}
     if isproxies != 'n':
         proxies = {'https': 'https://maximpiorischin8390:421debdacc9a9dfea41Aa@ca.slashproxies.io:20000',

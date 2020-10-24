@@ -8,6 +8,7 @@ nrmlrunning = False
 bbbrandedrunning = True
 # ------------------
 livestocklink = "https://www.deadstock.ca/collections/new-arrivals/products/"
+livestockyeezylink = 'https://www.deadstock.ca/collections/yeezy'
 nrmllink = "https://nrml.ca/"
 bblink = 'https://www.bbbranded.com/collections/all/products/'
 livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
@@ -16,6 +17,9 @@ bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
 # todo add proxies, add more variables
 print("Starting to monitor!")
 delay = int(input('Input Delay (seconds):'))
+isYeezy = input('Yeezys?(Y or N)').lower()
+if isYeezy == y:
+    livestocklink = livestockyeezylink
 if livestockrunning:
     live = requests.get(livestocklinkjson)
     livestock_list = json.loads(live.text)['products']

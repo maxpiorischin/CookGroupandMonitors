@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ShopifyMonitor.iml" filepath="$PROJECT_DIR$/.idea/ShopifyMonitor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CookGroup.iml" filepath="$PROJECT_DIR$/.idea/CookGroup.iml" />
     </modules>
   </component>
 </project>
