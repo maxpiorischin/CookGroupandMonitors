@@ -2,11 +2,12 @@ import requests
 import json
 import time
 from discord_webhook import DiscordWebhook
-from multiprocessing import Process, Queue
+from multiprocessing import Process
 
 
 # ----------------------------------------------------------------------------------------
-def siteupdate(main_list, main_id_list, jsonlink, link, sitename, webhook, queue, proxies):
+def siteupdate(main_list, main_id_list, jsonlink, link, sitename, webhook, proxies):
+    global livestock_list, nrml_list, bb_list, kith_list, livestock_id_list, nrml_id_list, bb_id_list, kith_id_list
     n = requests.get(jsonlink, proxies=proxies)
     temp_list = json.loads(n.text)['products']
     temp_id_list = []
@@ -23,8 +24,18 @@ def siteupdate(main_list, main_id_list, jsonlink, link, sitename, webhook, queue
                 url=webhook,
                 content=shoe_url, user=sitename)
             webhook.execute()
-    main_list = temp_list
-    queue.put(main_list)
+    if sitename == 'Livestock':
+        livestock_list = temp_list
+        livestock_id_list = temp_id_list
+    if sitename == 'nrml':
+        nrml_list = temp_list
+        nrml_id_list = temp_id_list
+    if sitename == 'bbbranded':
+        livestock_list = temp_list
+        nrml_id_list = temp_id_list
+    if sitename == 'Kith':
+        livestock_list = temp_list
+        nrml_id_list = temp_id_list
 
 
 # --------------------------------------------------------------------------------------------------
@@ -32,24 +43,27 @@ if __name__ == "__main__":
     livestockrunning = True
     nrmlrunning = True
     bbbrandedrunning = True
+    kithrunning = True
     # ------------------
     livestocklink = "https://www.deadstock.ca/collections/new-arrivals/products/"
     livestockyeezylink = 'https://www.deadstock.ca/collections/yeezy'
     nrmllink = "https://nrml.ca/"
     bblink = 'https://www.bbbranded.com/collections/all/products/'
+    kithlink = 'https://kith.com/collections/new-arrivals'
     livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
     livestockyeezylinkjson = 'https://www.deadstock.ca/collections/yeezy/products.json'
     nrmllinkjson = "https://nrml.ca/products.json"
     bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
-    livestockwebhook = 'https://discordapp.com/api/webhooks/752042313727082579/wWTjZUsYuWSCR-js-6gA9mSp2EKj0sBtXPBVdRCRkJL8y9thnVkMYH85WJjtHGGZE0ud'
-    nrmlwebhook = 'https://discordapp.com/api/webhooks/752042422950953033/4RpX9y-t6OLhRPSaoXVKbVz_AznsmgLN9sRNJC-m-nH9ca1Me7PQAM3SuBYPRdzisgVV'
-    bbbrandedwebhook = "https://discordapp.com/api/webhooks/751999828657176667/M-AM-KfjIbiSiFeoQnD-giFbqw_IydkDUhvEJJUHvB1qTTxCJuHQS9kcE_F6JHhB9vR7"
+    kithlinkjson = 'https://kith.com/collections/new-arrivals/products.json'
+    allwebhook = 'https://discordapp.com/api/webhooks/751671463660093520/MiMV4BA4qldw2omwVI-37AI_G3eWDIaaRlZKMCX192zpqxudfVLdR2NbZn9-28HrjyiC'
     livestock_list = []
     livestock_id_list = []
     nrml_list = []
     nrml_id_list = []
     bb_list = []
     bb_id_list = []
+    kith_list = []
+    kith_id_list = []
     isproxies = input('Use Proxies? (Y or N)').lower()
     delaytime = int(input('Monitor Delay:'))
     isYeezy = input('Yeezys?(Y or N)').lower()
@@ -80,30 +94,38 @@ if __name__ == "__main__":
         for bbid in bb_list:
             bb_id_list.append(bbid['id'])
 
+    if kithrunning:
+        kth = requests.get(kithlinkjson)
+        kith_list = json.loads(kth.text)['products']
+        for kthid in kith_list:
+            kith_id_list.append(kthid['id'])
+
     while True:
-        q = Queue()
-        rets = []
         processes = []
         time.sleep(delaytime)
         if livestockrunning:
             proc = Process(target=siteupdate,
                            args=[livestock_list, livestock_id_list, livestocklinkjson, livestocklink, 'Livestock',
-                                 livestockwebhook, q, proxies])
+                                 allwebhook, proxies])
+            processes.append(proc)
             proc.start()
         if nrmlrunning:
             proc = Process(target=siteupdate,
-                           args=[nrml_list, nrml_id_list, nrmllinkjson, nrmllink, 'nrml', nrmlwebhook, q, proxies])
+                           args=[nrml_list, nrml_id_list, nrmllinkjson, nrmllink, 'nrml', allwebhook, proxies])
+            processes.append(proc)
             proc.start()
         if bbbrandedrunning:
             proc = Process(target=siteupdate,
-                           args=[bb_list, bb_id_list, bblinkjson, bblink, 'bbbranded', bbbrandedwebhook, q, proxies])
+                           args=[bb_list, bb_id_list, bblinkjson, bblink, 'bbbranded', allwebhook, proxies])
+            processes.append(proc)
             proc.start()
-        for p in processes:
-            ret = q.get()
-            livestock_list = ret[0]
-            nrml_list = ret[1]
-            bb_list = ret[2]
-            rets.append(ret)
+
+        if kithrunning:
+            proc = Process(target=siteupdate,
+                           args=[kith_list, kith_id_list, kithlinkjson, kithlink, 'Kith',
+                                 allwebhook, proxies])
+            processes.append(proc)
+            proc.start()
         for p in processes:
             p.join()
         print('w')

@@ -5,16 +5,19 @@ from discord_webhook import DiscordWebhook
 
 livestockrunning = False
 nrmlrunning = False
-bbbrandedrunning = True
+bbbrandedrunning = False
+kithrunning = True
 # ------------------
 livestocklink = "https://www.deadstock.ca/collections/new-arrivals/products/"
 livestockyeezylink = 'https://www.deadstock.ca/collections/yeezy'
 nrmllink = "https://nrml.ca/"
 bblink = 'https://www.bbbranded.com/collections/all/products/'
+kithlink = 'https://kith.com/collections/new-arrivals'
 livestocklinkjson = "https://www.deadstock.ca/collections/new-arrivals/products.json"
 livestockyeezylinkjson = 'https://www.deadstock.ca/collections/yeezy/products.json'
 nrmllinkjson = "https://nrml.ca/products.json"
 bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
+kithlinkjson = 'https://kith.com/collections/new-arrivals/products.json'
 # todo add proxies, add more variables
 print("Starting to monitor!")
 delay = int(input('Input Delay (seconds):'))
@@ -34,8 +37,9 @@ if bbbrandedrunning:
     bb = requests.get(bblinkjson)
     bb_list = json.loads(bb.text)['products']
 
-
-# kith = .... todo add more sites with site functions
+if kithrunning:
+    kth = requests.get(kithlinkjson)
+    kith_list = json.loads(kth.text)['products']
 
 # ----------------------------------------------------------------------------------------
 def siteupdatelivestock():
@@ -83,6 +87,19 @@ def siteupdatebbbranded():
             webhook.execute()
     bb_list = temp_list
 
+def siteupdatekith():
+    global kith_list
+    n = requests.get(kithlinkjson)
+    temp_list = json.loads(n.text)['products']
+    for item in temp_list:
+        if item not in kith_list:
+            print("New Item Kith: ", item['title'])
+            shoe_url = kithlink + item['handle']
+            webhook = DiscordWebhook(
+                url="https://discordapp.com/api/webhooks/769755302605750312/yejRYyJVXqpob56EIue6JUp5lepRvAxyF5dE021QbE0h1foUesBW5rQx0SXIKbCs5qAU",
+                content=shoe_url, user="Kithfast")
+            webhook.execute()
+    kith_list = temp_list
 
 # --------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
@@ -94,4 +111,6 @@ if __name__ == "__main__":
             siteupdatenrml()
         if bbbrandedrunning:
             siteupdatebbbranded()
+        if kithrunning:
+            siteupdatekith()
         print('w')
