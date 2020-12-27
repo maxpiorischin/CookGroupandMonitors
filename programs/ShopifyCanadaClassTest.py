@@ -28,7 +28,7 @@ class ShopifySite:
                 return self.main_list  # Return same list, to recompare after
         for item in temp_list:
             if item['id'] not in self.main_id_list:  # Finds new item not in old list
-                print("New Item {}: {}").format(self.sitename, item['title'])
+                print(("New Item {}: {}").format(self.sitename, item['title']))
                 shoe_url = self.link + item['handle']
                 webhook = DiscordWebhook(
                     url=self.webhook,

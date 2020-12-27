@@ -3,8 +3,8 @@ from discord_webhook import DiscordWebhook
 
 consumer_key = '1SFD2HvUdlgdSDwvqjKNvGBKc'
 consumer_secret = 'TSxU9m4EBqS96EPckEYfDWIEkdVHjOYfL2aUO43YD5VZE0cMV9'
-access_token = '994587180130447360-8dPaxUKVAcqnbEK2HqY3B7vVYfvdc35'
-access_token_secret = 'eCrLFIfYqlCFzUch872BpBxJDiZmLpZWuLYZOl8FePQxe'
+access_token = '994587180130447360-j2UaEvSpXvgnH6V9GJzgKqU80Tr0iWd'
+access_token_secret = 'Pow5JrgUFXwW7KKzpluSqEDV0nnwzvDgfFtdSSGuyTa6A'
 webhooklink = 'https://discordapp.com/api/webhooks/749497271560831047/Dlo3B_Jci7AFbO4L5lX8tAiG0BN_w2a4J5NFxKNNMVCUmduyXtHS4bnd1x1oLkpK3qBK'
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -61,7 +61,17 @@ botdict = {
 
     'tvyeet': '994587180130447360',
 
-    'splashforcebot': '910500300594786305'
+    'splashforcebot': '910500300594786305',
+
+    'gizmosolution': '1144858502873014272',
+
+    'zeny_aio': '1218965377482481664',
+
+    'essenceaio': '730120059067219968',
+
+    'estocksoftware': '1156428558845321216',
+
+    'yeezy2502': '735996213179371520'
 }
 list_of_keywords = ['restock', 'password']
 print('starting to monitor!')
@@ -75,7 +85,7 @@ class MyStreamListener(tweepy.StreamListener):
                 url=webhooklink,
                 content=disc_post)
             webhook.execute()
-            print("**{} tweeted:** {}".format(status.user.screen_name, status.text))
+            print(disc_post)
             for keyword in list_of_keywords:
                 if keyword in status.text.lower():
                     role_mention = '<@&752003786721067138> {} RESTOCKING'.format(status.user.screen_name)

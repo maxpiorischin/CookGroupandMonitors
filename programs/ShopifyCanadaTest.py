@@ -18,12 +18,13 @@ def siteupdate(main_list, main_id_list, jsonlink, link, sitename, webhook, proxi
             return main_list  # Return same list, to recompare after
     for item in temp_list:
         if item['id'] not in main_id_list:  # Finds new item not in old list
-            print("New Item {}: {}").format(sitename, item['title'])
+            print(("New Item {}: {}").format(sitename, item['title']))
             shoe_url = link + item['handle']
             webhook = DiscordWebhook(
                 url=webhook,
                 content=shoe_url, user=sitename)
             webhook.execute()
+    print('Not same list')
     if sitename == 'Livestock':
         livestock_list = temp_list
         livestock_id_list = temp_id_list

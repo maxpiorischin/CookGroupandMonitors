@@ -1,5 +1,7 @@
 import tweepy
 from discord_webhook import DiscordWebhook
+import webbrowser
+import re
 #Big Win
 
 consumer_key = '1SFD2HvUdlgdSDwvqjKNvGBKc'
@@ -62,20 +64,30 @@ botdict = {
 
     'tvyeet': '994587180130447360',
 
-    'splashforcebot': '910500300594786305'
+    'splashforcebot': '910500300594786305',
+
+    'gizmosolution': '1144858502873014272',
+
+    'zeny_aio': '1218965377482481664',
+
+    'essenceaio': '730120059067219968',
+
+    'estocksoftware': '1156428558845321216'
 
 }
 print('starting to monitor!')
 
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
-        if status.user.screen_name.lower() == bot and not hasattr(status, 'retweeted_status'):
-            disc_post = "**{}** tweeted:  {}".format(status.user.name, status.text)
+        if status.user.screen_name.lower() == bot:
+            url = re.findall('(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+',status.text)
+            webbrowser.open(url[0], new = 1, autoraise=True)
+            disc_post = "**{}** tweeted:  {} URLS: {}".format(status.user.name, status.text, url)
             webhook = DiscordWebhook(
                 url=webhooklink,
                 content=disc_post)
             webhook.execute()
-            print("**{} tweeted:** {}".format(status.user.screen_name, status.text))
+            print(disc_post)
 
 
 if __name__ == '__main__':
