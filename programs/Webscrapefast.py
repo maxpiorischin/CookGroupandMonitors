@@ -10,8 +10,8 @@ havenrunning = True
 # ------------------
 havenlink = 'https://shop.havenshop.com/collections/new-arrivals'
 footlockercalink = 'https://www.footlocker.ca/en/category/new-arrivals'
-havenwebhook = 'https://discordapp.com/api/webhooks/757788317243932754/_MQtbVKwX7NltbVj5wXdgcujUV20S7KPqFQ27wC8-sdTeKhaCQaZSO_g5xWNhJKam8aA'
-footlockercanadawebhook = 'https://discordapp.com/api/webhooks/760364048004546591/mBKXd0uL66acDZVVzJd4_XIPgi_JOK_c7W_FYwp9DkdXCnfX1QLhRVwV7zorzc3WN8v6'
+havenwebhook = Webhooks.webhookhaven
+footlockercanadawebhook = Webhooks.webhookflca
 allwebhook = Webhooks.allwebhook
 print("Starting to monitor!")
 if havenrunning:
