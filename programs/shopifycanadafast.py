@@ -2,6 +2,7 @@ import requests
 import json
 import time
 from discord_webhook import DiscordWebhook
+import Webhooks
 
 livestockrunning = False
 nrmlrunning = False
@@ -51,7 +52,7 @@ def siteupdatelivestock():
             print("New Item Livestock: ", item['title'])
             shoe_url = livestocklink + item['handle']
             webhook = DiscordWebhook(
-                url='https://discordapp.com/api/webhooks/752042313727082579/wWTjZUsYuWSCR-js-6gA9mSp2EKj0sBtXPBVdRCRkJL8y9thnVkMYH85WJjtHGGZE0ud',
+                url=Webhooks.webhooklivestock,
                 content=shoe_url, user="livestockfast")
             webhook.execute()
     livestock_list = temp_list
@@ -67,7 +68,7 @@ def siteupdatenrml():
             print("New Item nrml: ", item['title'])
             shoe_url = nrmllink + item['handle']
             webhook = DiscordWebhook(
-                url='https://discordapp.com/api/webhooks/752042422950953033/4RpX9y-t6OLhRPSaoXVKbVz_AznsmgLN9sRNJC-m-nH9ca1Me7PQAM3SuBYPRdzisgVV',
+                url=Webhooks.webhooknrml,
                 content=shoe_url, user="nrmlfast")
             webhook.execute()
     nrml_list = temp_list
@@ -82,7 +83,7 @@ def siteupdatebbbranded():
             print("New Item bbbranded: ", item['title'])
             shoe_url = bblink + item['handle']
             webhook = DiscordWebhook(
-                url="https://discordapp.com/api/webhooks/751999828657176667/M-AM-KfjIbiSiFeoQnD-giFbqw_IydkDUhvEJJUHvB1qTTxCJuHQS9kcE_F6JHhB9vR7",
+                url=Webhooks.webhookbb,
                 content=shoe_url, user="BBBrandedfast")
             webhook.execute()
     bb_list = temp_list
@@ -96,7 +97,7 @@ def siteupdatekith():
             print("New Item Kith: ", item['title'])
             shoe_url = kithlink + item['handle']
             webhook = DiscordWebhook(
-                url="https://discordapp.com/api/webhooks/769755302605750312/yejRYyJVXqpob56EIue6JUp5lepRvAxyF5dE021QbE0h1foUesBW5rQx0SXIKbCs5qAU",
+                url=Webhooks.webhookkith,
                 content=shoe_url, user="Kithfast")
             webhook.execute()
     kith_list = temp_list

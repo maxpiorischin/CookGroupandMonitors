@@ -3,6 +3,7 @@ import json
 import time
 from discord_webhook import DiscordWebhook
 from multiprocessing import Process
+import Webhooks
 
 
 # ----------------------------------------------------------------------------------------
@@ -64,7 +65,7 @@ if __name__ == "__main__":
     nrmllinkjson = "https://nrml.ca/products.json"
     bblinkjson = 'https://www.bbbranded.com/collections/all/products.json'
     kithlinkjson = 'https://kith.com/collections/new-arrivals/products.json'
-    allwebhook = 'https://discordapp.com/api/webhooks/751671463660093520/MiMV4BA4qldw2omwVI-37AI_G3eWDIaaRlZKMCX192zpqxudfVLdR2NbZn9-28HrjyiC'
+    allwebhook = Webhooks.allwebhook
     livestock_list = []
     livestock_id_list = []
     nrml_list = []
