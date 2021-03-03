@@ -9,7 +9,7 @@ consumer_key = Webhooks.consumer_key
 consumer_secret = Webhooks.consumer_secret
 access_token = Webhooks.access_token
 access_token_secret = Webhooks.access_token_secret
-webhooklink = Webhooks.webhooktwitterkiryl
+webhooklink = Webhooks.twitterweb
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
