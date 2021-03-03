@@ -10,15 +10,14 @@ footlockercarunning = True
 # ------------------
 havenlink = 'https://shop.havenshop.com/collections/new-arrivals'
 footlockercalink = 'https://www.footlocker.ca/en/category/new-arrivals'
-footlockercanadawebhook = 'https://discordapp.com/api/webhooks/760364048004546591/mBKXd0uL66acDZVVzJd4_XIPgi_JOK_c7W_FYwp9DkdXCnfX1QLhRVwV7zorzc3WN8v6'
+footlockercanadawebhook = Webhooks.webhookfootlocker
 allwebhook = Webhooks.allwebhook
 proxiesif = input('Proxies?(Y or N').lower()
 flca_list = []
 haven_list = []
 proxies = {}
 if proxiesif != 'n':
-    proxies = {'https': 'https://maximpiorischin8390:421debdacc9a9dfea41Aa@ca.slashproxies.io:20000',
-               'http': 'https://maximpiorischin8390:421debdacc9a9dfea41Aa@ca.slashproxies.io:20000'}
+    proxies = {}
 print("Starting to monitor!")
 if havenrunning:
     hav = requests.get(havenlink, proxies)

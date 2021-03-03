@@ -29,7 +29,7 @@ if __name__ == '__main__':
             if x != latest_tweet:
                 disc_post = "**{}** tweeted:  {}".format(i.user.name, x)
                 webhook = DiscordWebhook(
-                    url=webhookkiryl,
+                    url=webhooklink,
                     content=disc_post)
                 webhook.execute()
                 print(i.user.name, x)
