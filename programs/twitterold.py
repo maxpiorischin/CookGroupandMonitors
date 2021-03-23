@@ -55,12 +55,15 @@ botdict = {
 
 }
 print('starting to monitor!')
+def openlink(text):
+    url = re.findall('(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+', text)
+    webbrowser.open(url[0], new=1, autoraise=True)
+    return url
 
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         if status.user.screen_name.lower() == bot:
-            url = re.findall('(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+',status.text)
-            webbrowser.open(url[0], new = 1, autoraise=True)
+            url = openlink(status.text)
             disc_post = "**{}** tweeted:  {} URLS: {}".format(status.user.name, status.text, url)
             webhook = DiscordWebhook(
                 url=webhooklink,

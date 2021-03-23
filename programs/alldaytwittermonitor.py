@@ -1,7 +1,10 @@
 import tweepy
 from discord_webhook import DiscordWebhook
 import Webhooks
+import webbrowser
+import re
 
+chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
 consumer_key = Webhooks.consumer_key
 consumer_secret = Webhooks.consumer_secret
 access_token = Webhooks.access_token
@@ -45,10 +48,17 @@ botdict = {
     'yeezy2502': '735996213179371520'
 }
 list_of_keywords = ['restock', 'password']
+
+def openlink(text):
+    urls = re.findall('(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+', text)
+    for url in urls:
+        webbrowser.get(chrome_path).open(url, new=1, autoraise=True)
+
 print('starting to monitor!')
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         if status.user.screen_name.lower() in botdict and not hasattr(status, 'retweeted_status'):
+            openlink(status.text)
             disc_post = "**{}** tweeted:  {}".format(status.user.name, status.text)
             webhook = DiscordWebhook(
                 url=webhooklink,
