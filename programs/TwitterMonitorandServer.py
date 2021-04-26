@@ -26,7 +26,7 @@ def openlink(text):
         webbrowser.get(chrome_path).open(url, new=1, autoraise=True)
 
 if __name__ == '__main__':
-    new_tweets = api.user_timeline(count=1, tweet_mode="extended", screen_name = '@'+ mybot, exclude_replies=True)
+    new_tweets = api.user_timeline(count=3, tweet_mode="extended", screen_name = '@'+ mybot, exclude_replies=True)
     latest_tweet = new_tweets[0].full_text
     while True:
         new_tweets = api.user_timeline(count = 1, tweet_mode = "extended", screen_name = '@'+ mybot,  exclude_replies = True)
